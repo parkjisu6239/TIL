@@ -1,0 +1,90 @@
+main {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+section {
+    padding: 30px;
+    border: solid 1px gray;
+    display: flex;
+    gap: 30px;
+}
+
+section > div {
+    width: 50px;
+    height: 50px;
+}
+
+section > .move-item {
+    filter: saturate(10);
+}
+
+.transform > div {
+    background-color: darkolivegreen;
+}
+
+.positioning.relative > div {
+    background-color: goldenrod;
+}
+
+.positioning.absolute {
+    position: relative;
+}
+
+.positioning.absolute > div {
+    background-color: brown;
+}
+
+.transform .move-item {
+    transform: translate(50px, 50px);
+}
+
+.positioning.relative .move-item {
+   position: relative;
+   top: 50px;
+   left: 50px; 
+}
+
+.positioning.absolute .move-item {
+    position: absolute;
+    top: 50px;
+    left: 50px; 
+}
+
+.animation .ani {
+    background-color: darkblue;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+
+.animation .trans.ani {
+    animation-name: transAni;
+}
+
+.animation .posi.ani {
+    animation-name: posiAni;  
+}
+
+@keyframes transAni {
+    from {
+        transform: translate(0);
+    }
+
+    to {
+        transform: translate(400px);
+    }
+}
+
+@keyframes posiAni {
+    from {
+        position: relative;
+        left: 0; 
+    }
+
+    to {
+        position: relative;
+        left: 400px;
+    }
+}
