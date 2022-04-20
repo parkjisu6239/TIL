@@ -16,4 +16,5 @@
 | [22.04.13](./swiper)                                                             |           JavaScript 모듈을 가져오고/내보내는 방식, CJS vs ESM (feat.swiper)                                 |    JavaScript      |
 |                     [22.04.14](https://velog.io/@parkjisu6239/220414TIL-css-transform-vs-positioning)                                         |                                 Transform vs Positioning           |     CSS     |
 | [22.04.18](./http_vs_socket.md) | http vs socket | network |
+| [22.04.20](https://velog.io/@parkjisu6239/220420TIL-React-state-props-life-cycle) | React state, props, lifecycle | React |
 
