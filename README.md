@@ -18,5 +18,6 @@
 | [22.04.18](./http_vs_socket.md) | http vs socket | network |
 | [22.04.20](https://velog.io/@parkjisu6239/220420TIL-React-state-props-life-cycle) | React state, props, lifecycle | React |
 | [22.04.21](./shallow_vs_deep) | shallow vs deep copy | JavaScript |
-| [22.05.04](./declare_keyword) | Declare keyword | JavaScript |
+| [22.05.04](./declare_keyword.md) | Declare keyword | JavaScript |
+| [22.05.08](./VirtualMemory.md) | Virtual Memory | OS |
 
