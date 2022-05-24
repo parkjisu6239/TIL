@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    input {
+      margin: 0 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid #333;
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      font-size: 3rem;
+    }
+
+    .input-wrapper {
+      width: fit-content;
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <div class="input-wrapper">
+      <input id="pin-0" type="text" name="pin" value="" inputmode="decimal" maxlength="1" autocomplete="off">
+      <input id="pin-1" type="text" name="pin" value="" inputmode="decimal" maxlength="1" autocomplete="off">
+      <input id="pin-2" type="text" name="pin" value="" inputmode="decimal" maxlength="1" autocomplete="off">
+      <input id="pin-3" type="text" name="pin" value="" inputmode="decimal" maxlength="1" autocomplete="off">
+    </div>
+    <span class="pin-num">
+    </span>
+  </form>
+  <script>
+    const form = document.querySelector('form')
+    const wrapper = document.querySelector('.input-wrapper')
+    const inputs = document.querySelectorAll("input");
+    const pin = document.querySelector('.pin-num')
+    const reg = /[0-9]/
+    let idx = 0
+    const inputList = Array(inputs.length)
+
+    inputs.forEach((input) => { 
+      input.addEventListener("mousedown", (e) => {
+        e.preventDefault()
+        inputs[idx].focus()
+      })
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Tab") e.preventDefault()
+        if (e.key === "Backspace") { 
+          console.log(input.value)
+          if (input.value === "") { // isEmpty ?
+            idx = Math.max(0, idx - 1) // index minus
+            inputs[idx].focus()
+          }
+        }
+      })
+
+      input.addEventListener("input", (e) => {
+        const text = e.target.value
+        if (reg.test(text)) { // 숫자일 때
+          input.value = text.toString() // save input
+          inputList[idx] = text.toString() // save input list
+          idx = Math.min(idx + 1, inputs.length - 1) // idx plus'
+          inputs[idx].focus()
+        } else {
+          e.target.value = ""
+        }
+        pin.textContent = inputList.join("")
+      })
+  })
+  </script>
+</body>
+</html>
