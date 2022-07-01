@@ -24,4 +24,5 @@
 | [22.05.23](./compiler_vs_interpreter/220523.md) | compiler vs interpreter | OS |
 | [22.05.26](./220526.md) | Multiprogramming, multitasking, multithreading and multiprocessing | OS |
 | [22.06.02](./220602.md) | 자주 쓰는 Git 명령어 | Git |
+| [22.07.01](./22.07.01.md) | 프로세스의 상태, sleep 과 suspend, blocking IO | OS |
 
