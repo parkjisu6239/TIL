@@ -62,14 +62,13 @@ newTodos.push({
   title: "https 공부하기",
   isDone: false,
 })
-setTodos(newTodos)
 ```
 
 
 
 #### With Immer
 
-Immer 를 사용하 프로세스가 더 간단해진다. 
+Immer 를 사용하면 프로세스가 더 간단해진다. 
 
 produce 는 두가지 인자를 가지는데 첫번째 파라미터는 현재 상태값, 두번째 파라미터는 변경하고자 하는 새로운 상태값이다. produce는 baseState를 기반으로 draft(복사본)을 만들고 이를 새로운 변수로 할당하는 것이다.
 
@@ -346,11 +345,106 @@ const updatedTodosArray = produce(todosArray, draft => {
 
 // filtering items
 const updatedTodosArray = produce(todosArray, draft => {
-    // creating a new state is simpler in this example
-    // (note that we don't need produce in this case,
-    // but as shown below, if the filter is not on the top
-    // level produce is still pretty useful)
     return draft.filter(todo => todo.done)
+})
+```
+
+## Advanced Features
+### Current
+
+`current(param)`: Draft 의 현재 상태를 반환하는 함수로서, 함수를 호출할 당시의 파라미터의 스냅샷을 반환한다. 단계별로 수정되거나 추가되는 데이터를 다룰 때 디버깅에 사용할 수 있다.
+
+```js
+const base = {
+    x: 0
+}
+
+const next = produce(base, draft => {
+    draft.x++
+    const orig = original(draft)
+    const copy = current(draft)
+    console.log(orig.x)
+    console.log(copy.x)
+
+    setTimeout(() => {
+        // this will execute after the produce has finised!
+        console.log(orig.x)
+        console.log(copy.x)
+    }, 100)
+
+    draft.x++
+    console.log(draft.x)
+})
+console.log(next.x)
+
+// This will print
+// 0 (orig.x)
+// 1 (copy.x)
+// 2 (draft.x)
+// 2 (next.x)
+// 0 (after timeout, orig.x)
+// 1 (after timeout, copy.x) -> draft.x++ 적용 되지 않음!
+```
+
+### Patches
+`Patches` 는 `produce`를 사용하여 `Draft`가 변경되는 동안, 모든 변경 사항을 기록할 수 있다. commit을 남기는 것과 동일한 역할을 한다고 볼 수 있다. 따라서 `patches` 를 사용하면 지금까지 수행한 변경사항을 되돌리거나, 다른 변수에도 동일한 변경 사항을 적용할 수 있다.
+
+```js
+import produce, {applyPatches} from "immer"
+
+import {enablePatches} from "immer"
+enablePatches() // 패치 활성화
+
+let state = {
+    name: "Micheal",
+    age: 32
+}
+
+let fork = state // 복사본 생성
+let changes = [] // 변경 사항을 담을 배열
+let inverseChanges = [] // 변경의 역순을 담을 배열
+
+fork = produce(
+    fork,
+    draft => {
+        draft.age = 33
+    },
+    (patches, inversePatches) => { // produce의 3번째 인자
+        changes.push(...patches)
+        inverseChanges.push(...inversePatches)
+    }
+)
+
+state = produce(state, draft => {
+    draft.name = "Michel"
+
+state = applyPatches(state, changes) // state에 fork의 변경 사항 적용하기
+
+expect(state).toEqual({
+    name: "Michel", // 직접 바꾼 것
+    age: 33 // patch 적용한 것
+})
+
+state = applyPatches(state, inverseChanges) // 되돌리기
+expect(state).toEqual({
+    name: "Michel", // 그대로
+    age: 32 // Reverted
+})
+```
+
+### Async producers
+async/await를 사용하여 produce가 promise 객체를 반환할 수 있다.
+
+```js
+import produce from "immer"
+
+const user = {
+    name: "michel",
+    todos: []
+}
+
+const loadedUser = await produce(user, async function(draft) {
+    draft.todos = await (await window.fetch("http://host/" + draft.name)).json()
 })
 ```
 
