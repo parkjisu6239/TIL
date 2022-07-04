@@ -25,4 +25,5 @@
 | [22.05.26](./220526.md) | Multiprogramming, multitasking, multithreading and multiprocessing | OS |
 | [22.06.02](./220602.md) | 자주 쓰는 Git 명령어 | Git |
 | [22.07.01](./22.07.01.md) | 프로세스의 상태, sleep 과 suspend, blocking IO | OS |
+| [22.07.04](./22.07.04.md) | 프로세스 생성 `fork()` vs `exec()` | OS |
 
