@@ -4,12 +4,12 @@
 
 ## Immer 란?
 
-> Create the next immutable state tree by simply modifying the current tree
+> Immer는 변경할 수 없는 데이터 구조 처리를 단순화합니다 .
 
 React 에서 배열이나 객체를 쉽게 업데이트할 수 있게 하는 라이브러로, 불변성을 유지하는 코드를 작성하기 쉽게 한다.
 
-- React state, React or Redux reducers 와 사용할 수 있습니다
-- 스프레드 없이 원본 데이터에 영향을 주지 않고 복사본을 만들 수 있습니다.
+- React state, React or Redux reducers 와 사용할 수 있다
+- 스프레드 없이 원본 데이터에 영향을 주지 않고 복사본을 만들 수 있다.
 
 
 
@@ -93,10 +93,7 @@ const newTodos = produce(baseState, draft => {
 
 사실 기존에 사용하던 방법과 크게 다르지는 않다. immer가 `currentState`를 기반으로 deepcopy 하여 draft 를 생성해주는것이다. 
 
-모든 수정이 완료되면 Immer는 draft에 대한 변경를 기반으로 nextState 를 생성합니다. 즉, 변경할 수 없는 데이터의 모든 이점을 유지하면서 데이터를 수정하기만 하면 데이터와 상호 작용할 수 있습니다.
-
-![immer-hd.png](https://immerjs.github.io/immer/assets/images/immer-4002b3fd2cfd3aa66c62ecc525663c0d.png)
-
+모든 수정이 완료되면 Immer는 draft에 대한 변경를 기반으로 nextState 를 생성합니다. 즉, 변경할 수 없는 데이터의 모든 이점을 유지하면서 데이터를 수정하기만 하면 데이터와 상호 작용할 수 있다.
 
 
 ### 장점
